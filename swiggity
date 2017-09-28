@@ -22,10 +22,6 @@ Usage: swiggity [subcommand]
 	    * Submits a release to github, using your GITHUB_ACCESS_TOKEN, containing the changelog between blue/production
 
 	.swiggityrc can contain:
-	  - BLUE_BRANCH
-	    The name of the branch to use for 'blue'
-	  - GREEN_BRANCH
-	    The name of the branch to use for 'green'
 	  - REPO_NAME
 	    The <org_name/repo_name> to push releases to.
 "
@@ -34,7 +30,7 @@ Usage: swiggity [subcommand]
 main() {
 	set -eo pipefail; [[ "$TRACE" ]] && set -x
 	case "$1" in
-		push)       create-release {$REPO_NAME:-$2} $(change-log $BLUE_BRANCH $GREEN_BRANCH);;
+		push)       create-release ${REPO_NAME:-$2};;
 		*)          usage;;
 	esac
 }

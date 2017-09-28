@@ -3,17 +3,6 @@
 A few lines of bash to automate git tags, and github releases with a change log, for a CD project.
 Viable only if you do not care about semantic versioning in the context of your project.
 
-NB: This is a couple of hours worth of largely untested bash, that force pushes to your repository, so don't just copy it and use it.
-
-## How it works
-
-Swiggity basically just keeps track of two "rolling" branches: "blue" and "green".
-These might correspond with blue/green stacks in a blue/green deploy process.
-
-Use swiggity in your release pipeline, and these branches will be updated everytime a release occurs, and will be used to submit a release to github containing an automatically generated changelog.
-
-Do *_NOT_* use these branches for development, because they will be [yolo-plopped on](https://www.github.com/nathanKramer/lit-git) indiscriminately.
-
 ### Requirements
 
 - A git repository exists in your current working directory
@@ -23,19 +12,14 @@ Do *_NOT_* use these branches for development, because they will be [yolo-ploppe
 
 ### Usage: `swiggity push <org_name/repo_name>`
 
-  - Renames old production backup branch to blue, and branches HEAD to new production backup branch
-  - _Force pushes_ these branches to your repository (Yes, that's right. Use at your own risk, I'm not liable.)
-  - Creates a release tag, which is pushed
-  - Submits a release to github, using your GITHUB_ACCESS_TOKEN, containing the changelog between blue/production
+  - Submits a release to github, using your GITHUB_ACCESS_TOKEN, containing the changelog between HEAD and the previous github release
 
 ### .swiggityrc
 
 .swiggityrc can contain:
 
-- BLUE_BRANCH
-  The name of the branch to use for 'blue'
-- GREEN_BRANCH
-  The name of the branch to use for 'green'
+- REMOTE
+  The github remote, defaults to origin
 - REPO_NAME
   The <org_name/repo_name> to push releases to.
 
@@ -47,16 +31,6 @@ REPO_NAME=<org_name/repo_name>
 
 # If not set, defaults to `origin`
 REMOTE=canon
-
-# Github Branch names.
-# NB: These branches should be considered volatile.
-#     They are maintained by swiggity as convenient backups for diffing etc.
-
-# If not set, defaults to blue-backup
-BLUE_BRANCH=blue
-
-# If not set, defaults to production-backup
-GREEN_BRANCH=green
 ```
 
 ## Contributing
