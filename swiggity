@@ -2,12 +2,12 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$DIR/lib/bootstrap.sh"
 
-#########################################
-# SWIGGITY SWITHUB, WE RELEASIN ON GITHUB
-#########################################
-
 usage() {
 	echo "
+##########################################
+# swiGITy swithub, we releasin' on github!
+##########################################
+
 Usage: swiggity [subcommand]
 	Requires a git repository
 	Ensure you have GITHUB_ACCESS_TOKEN env var set.
@@ -15,11 +15,15 @@ Usage: swiggity [subcommand]
 	Sub commands:
 		- describe
 			Describes the release. This will be the body of the github release.
+		- latest
+			The tag of the latest release.
 		- push <org_name/repo_name>
 			* Creates a release tag, which is pushed
 			* Submits a release to github, using your GITHUB_ACCESS_TOKEN, including a change log
 
 	.swiggityrc can contain:
+		- REMOTE
+			The github remote, defaults to origin
 		- REPO_NAME
 			The <org_name/repo_name> to push releases to.
 "
@@ -30,6 +34,7 @@ main() {
 	local repo_name=${REPO_NAME:-$2}
 	case "$1" in
 		describe)   change-log $(latest-release-tag $repo_name) HEAD;;
+		latest)     latest-release-tag $repo_name;;
 		push)       create-release $repo_name;;
 		*)          usage;;
 	esac
