@@ -16,10 +16,8 @@ Usage: swiggity [subcommand]
 		- describe
 			Describes the release. This will be the body of the github release.
 		- push <org_name/repo_name>
-			* Renames old production branch to blue, and branches HEAD to new production branch
-			* _Force pushes_ these branches to your repository
 			* Creates a release tag, which is pushed
-			* Submits a release to github, using your GITHUB_ACCESS_TOKEN, containing the changelog between blue/production
+			* Submits a release to github, using your GITHUB_ACCESS_TOKEN, including a change log
 
 	.swiggityrc can contain:
 		- REPO_NAME

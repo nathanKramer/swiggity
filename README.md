@@ -10,9 +10,16 @@ Viable only if you do not care about semantic versioning in the context of your 
 - GITHUB_ACCESS_TOKEN env var is set.
 - REPO_NAME env var is set, or passed in as an argument (see usage)
 
-### Usage: `swiggity push <org_name/repo_name>`
+### Usage
 
-  - Submits a release to github, using your GITHUB_ACCESS_TOKEN, containing the changelog between HEAD and the previous github release
+#### `swiggity describe <org_name/repo_name>`
+
+  - Outputs the changelog that would be used in the published release, without tagging commits or submitting a real release.
+
+#### `swiggity push <org_name/repo_name>`
+
+  - Creates a release tag, which is pushed
+  - Submits a release to github, using your GITHUB_ACCESS_TOKEN
 
 ### .swiggityrc
 
@@ -21,7 +28,7 @@ Viable only if you do not care about semantic versioning in the context of your 
 - REMOTE
   The github remote, defaults to origin
 - REPO_NAME
-  The <org_name/repo_name> to push releases to.
+  The <org_name/repo_name> to push releases to. If set, you do not need to provide this as an argument to `describe` or `push`
 
 #### Example .swiggityrc
 
