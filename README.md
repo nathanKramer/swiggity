@@ -16,6 +16,10 @@ Viable only if you do not care about semantic versioning in the context of your 
 
   - Outputs the changelog that would be used in the published release, without tagging commits or submitting a real release.
 
+#### `swiggity latest <org_name/repo_name>`
+
+  - Outputs the latest release tag
+
 #### `swiggity push <org_name/repo_name>`
 
   - Creates a release tag, which is pushed
