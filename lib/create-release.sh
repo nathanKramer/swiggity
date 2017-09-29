@@ -3,15 +3,16 @@
 readonly release_endpoint="${GITHUB_API_URL:-https://api.github.com}/repos/%s/releases"
 readonly release_json='{"tag_name": "%s", "name": "%s", "target_commitish": "%s", "body": "%s"}'
 
-function latest-release-tag() {
-	jq -r ".tag_name" <(curl -s -X GET "$1/latest?access_token=$GITHUB_ACCESS_TOKEN") > /dev/null
+latest-release-tag() {
+	local latest_release_endpoint="$(printf "$release_endpoint" "$1")/latest?access_token=$GITHUB_ACCESS_TOKEN"
+	jq -r ".tag_name" <(curl -s -X GET "$latest_release_endpoint")
 }
 
 create-release() {
 	# Tag the release
 	local tag_name=$(date '+%d-%m-%Y@%H-%M')
 	local release_url="$(printf "$release_endpoint" "$1")"
-	local old_tag=$(latest-release-tag $release_url)
+	local old_tag=$(latest-release-tag $1)
 
 	git tag -a "$tag_name" -m "Production release at $(date -u)"
 

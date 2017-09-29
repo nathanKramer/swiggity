@@ -13,24 +13,26 @@ Usage: swiggity [subcommand]
 	Ensure you have GITHUB_ACCESS_TOKEN env var set.
 
 	Sub commands:
-	  - describe
-	    Describes the release. This will be the body of the github release.
-	  - push <org_name/repo_name>
-	    * Renames old production branch to blue, and branches HEAD to new production branch
-	    * _Force pushes_ these branches to your repository
-	    * Creates a release tag, which is pushed
-	    * Submits a release to github, using your GITHUB_ACCESS_TOKEN, containing the changelog between blue/production
+		- describe
+			Describes the release. This will be the body of the github release.
+		- push <org_name/repo_name>
+			* Renames old production branch to blue, and branches HEAD to new production branch
+			* _Force pushes_ these branches to your repository
+			* Creates a release tag, which is pushed
+			* Submits a release to github, using your GITHUB_ACCESS_TOKEN, containing the changelog between blue/production
 
 	.swiggityrc can contain:
-	  - REPO_NAME
-	    The <org_name/repo_name> to push releases to.
+		- REPO_NAME
+			The <org_name/repo_name> to push releases to.
 "
 }
 
 main() {
 	set -eo pipefail; [[ "$TRACE" ]] && set -x
+	local repo_name=${REPO_NAME:-$2}
 	case "$1" in
-		push)       create-release ${REPO_NAME:-$2};;
+		describe)   change-log $(latest-release-tag $repo_name) HEAD;;
+		push)       create-release $repo_name;;
 		*)          usage;;
 	esac
 }
