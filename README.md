@@ -9,6 +9,7 @@ Viable only if you do not care about semantic versioning in the context of your 
 - git is installed
 - GITHUB_ACCESS_TOKEN env var is set.
 - REPO_NAME env var is set, or passed in as an argument (see usage)
+- Currently depends on [jq](https://stedolan.github.io/jq/)
 
 ### Usage
 
