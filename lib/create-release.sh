@@ -19,7 +19,7 @@ create-release() {
 	local release_body=$tag_name
 	if [ "$old_tag" != "null" ]; then
 		echo "Building change log between $old_tag and $tag_name"
-		release_body=$(change-log $old_tag $tag_name)
+		release_body=$(change-log $old_tag $tag_name --jsonSafe)
 		echo $release_body
 	fi
 
